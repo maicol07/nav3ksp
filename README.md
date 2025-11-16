@@ -19,13 +19,9 @@ Somewhat inspired by awesome android library [compose-destinations](https://gith
 
 ## Showcase
 
-Android
-
-![android](.github/assets/android.mp4)
-
-iOS
-
-![ios](.github/assets/ios.mp4)
+Android | iOS
+:-: | :-:
+<video src="https://github.com/user-attachments/assets/0bf67a03-5b98-4cfa-86a3-cb16b2f94873"/> | <video src="https://github.com/user-attachments/assets/343ed10b-4be5-4f0b-bedb-2b46ca5a06ae"/>
 
 ---
 
