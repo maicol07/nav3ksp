@@ -1,16 +1,11 @@
 name: Publish
 
 on:
-  push:
-    tags:
-      - '*.*.*'
+  release:
+    types: [released, prereleased]
 
 permissions:
   contents: read
-
-concurrency:
-  group: publish-${{ github.event.release.tag_name || github.ref || github.sha }}
-  cancel-in-progress: false
 
 jobs:
   publish:
