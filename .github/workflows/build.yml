@@ -35,5 +35,8 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v5
+
       - name: Publish to MavenCentral
-        run: ./gradlew ${{ matrix.module }}:build --no-configuration-cache
+        run: gradle ${{ matrix.module }}:build --no-configuration-cache
