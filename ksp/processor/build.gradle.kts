@@ -1,6 +1,14 @@
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.multiplatform)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.maven)
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+
+    coordinates(group.toString(), "nav3ksp-processor", version.toString())
 }
 
 kotlin {

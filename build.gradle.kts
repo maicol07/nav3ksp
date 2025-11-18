@@ -1,8 +1,14 @@
 plugins {
     alias(libs.plugins.androidApplication) apply false
-    alias(libs.plugins.androidLibrary) apply false
-    alias(libs.plugins.composeMultiplatform) apply false
+    alias(libs.plugins.multiplatform) apply false
+    alias(libs.plugins.multiplatformLibrary) apply false
+    alias(libs.plugins.compose) apply false
     alias(libs.plugins.composeCompiler) apply false
-    alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinSerialization) apply false
+    alias(libs.plugins.maven) apply false
+}
+
+allprojects {
+    group = "io.github.fopwoc.nav3ksp"
+    version = providers.exec { commandLine("git", "describe", "--tags", "--abbrev=0") }.standardOutput.asText.get().trim()
 }

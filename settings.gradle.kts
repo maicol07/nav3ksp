@@ -1,4 +1,4 @@
-rootProject.name = "nav3-ksp"
+rootProject.name = "nav3ksp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

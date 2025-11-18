@@ -1,17 +1,27 @@
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.multiplatform)
+    alias(libs.plugins.multiplatformLibrary)
+    alias(libs.plugins.maven)
 }
 
 kotlin {
     jvm()
     jvmToolchain(libs.versions.java.get().toInt())
 
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.get()))
+    androidLibrary {
+        namespace = "$group.annotation"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        withJava()
+
+        compilations.configureEach {
+            compilerOptions.configure {
+                jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.get()))
+            }
         }
     }
 
@@ -23,19 +33,5 @@ kotlin {
             baseName = "Nav3KspAnnotaion"
             isStatic = true
         }
-    }
-}
-
-android {
-    namespace = "io.github.fopwoc.nav3ksp.annotation"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.versions.java.get())
-        targetCompatibility = JavaVersion.toVersion(libs.versions.java.get())
     }
 }
