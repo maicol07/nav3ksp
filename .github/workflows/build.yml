@@ -38,5 +38,5 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v5
 
-      - name: Publish to MavenCentral
+      - name: Build
         run: gradle ${{ matrix.module }}:build --no-configuration-cache
