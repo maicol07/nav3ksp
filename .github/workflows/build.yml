@@ -20,7 +20,8 @@ jobs:
       matrix:
         module:
           - ":lib"
-          - ":ksp:processor"
+          - ":ksp:nav3ksp-annotation"
+          - ":ksp:nav3ksp-processor"
     steps:
       - name: Check out code
         uses: actions/checkout@v5
