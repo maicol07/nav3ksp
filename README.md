@@ -25,7 +25,70 @@ Android | iOS
 
 ---
 
-## Examples
+## How to install
+
+Firstly, you need to install KSP plugin in your project.
+
+```kotlin
+plugins {
+    id("com.google.devtools.ksp") version "2.3.2"
+}
+```
+
+In `build.gradle.kts` at `kotlin` block of your project add dependencies to `commonMain`
+
+```kotlin
+kotlin {
+    // ...
+    sourceSets {
+        // ...
+        commonMain {
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+            dependencies {
+                // ...
+                implementation("io.github.fopwoc:nav3ksp:1.0.1")
+                implementation("io.github.fopwoc:nav3ksp-annotation:1.0.1")
+            }
+        }
+    }    
+}
+```
+
+Add KSP plugin dependency to `dependencies` block.
+
+```kotlin
+dependencies {
+    // ...
+    add("kspCommonMainMetadata", "io.github.fopwoc:nav3ksp-processor:1.0.1")
+}
+```
+
+And finally, add somewhere in your `build.gradle.kts` this block to run codegen on every build.
+Or not, then you have to call this job by hand.
+
+```kotlin
+tasks.named("preBuild") {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
+```
+
+---
+
+I already said that actually you can use library without any code generation, just as boilerplate "framework".
+In this case add this dependency to your `build.gradle.kts` project and have fun implementing abstract classes of all kind.
+
+```kotlin
+sourceSets {
+    commonMain.dependencies {
+        // ...
+        implementation("io.github.fopwoc:nav3ksp:1.0.1")
+    }
+}
+```
+
+---
+
+## How to use
 
 First, we need to declare an annotation that will represent our Tree
 
@@ -70,7 +133,7 @@ That's it!
 
 For more examples, you can see 'example' module with multiplatform app that shows few usages of this library.
 
-1) [Simple navigation](example/composeApp/src/commonMain/kotlin/io/github/fopwoc/nav3ksp/example/01-simple.kt) - Just plain navigation
+1) [Simple navigation](example/composeApp/src/commonMain/kotlin/io/github/fopwoc/nav3ksp/example/01-simple.kt) - Simple navigation
 2) [Back Handled](example/composeApp/src/commonMain/kotlin/io/github/fopwoc/nav3ksp/example/02-backhandled.kt) - Like simple navigation, but back gesture is handled in view
 3) [ViewModel](example/composeApp/src/commonMain/kotlin/io/github/fopwoc/nav3ksp/example/03-viewmodel.kt) - Example how this lib handles view models
 4) [Arguments](example/composeApp/src/commonMain/kotlin/io/github/fopwoc/nav3ksp/example/04-arguments.kt) - Navigation with typed arguments 
