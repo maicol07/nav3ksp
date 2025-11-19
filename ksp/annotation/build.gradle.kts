@@ -7,6 +7,13 @@ plugins {
     alias(libs.plugins.maven)
 }
 
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+
+    coordinates(group.toString(), "nav3ksp-annotation", version.toString())
+}
+
 kotlin {
     jvm()
     jvmToolchain(libs.versions.java.get().toInt())
