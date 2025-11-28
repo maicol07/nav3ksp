@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.androidLibrary
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -32,6 +33,18 @@ kotlin {
                 jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.get()))
             }
         }
+    }
+
+    js {
+        browser()
+        nodejs()
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+        nodejs()
+        d8()
     }
 
     listOf(

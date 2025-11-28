@@ -1,4 +1,5 @@
 import com.google.devtools.ksp.gradle.KspAATask
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -15,6 +16,25 @@ kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.get()))
         }
+    }
+
+    js {
+        browser {
+            commonWebpackConfig {
+                outputFileName = "composeApp.js"
+            }
+        }
+        binaries.executable()
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser {
+            commonWebpackConfig {
+                outputFileName = "composeApp.js"
+            }
+        }
+        binaries.executable()
     }
 
     listOf(
@@ -94,4 +114,12 @@ tasks.withType<KspAATask>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }
+}
+
+tasks.named("compileKotlinJs") {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
+
+tasks.named("compileKotlinWasmJs") {
+    dependsOn("kspCommonMainKotlinMetadata")
 }
